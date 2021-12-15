@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--suppress XmlInvalidId -->
+<html lang="en">
+<head th:replace="~{base :: head('Home')}"></head>
+<body>
+
+<div th:replace="~{base:: topo}"></div>
+
+<div class="container mt-3">
+    <div th:replace="~{base :: titulo('Novo Livro')}"></div>
+
+    <div class="card mt-3">
+
+        <form action="/livro/salvar" method="post" class="card-body" th:object="${livroSalvarDTO}">
+            <div class="form-group mb-2">
+                <label for="nomeLivro">Nome</label>
+                <input th:field="*{nomeLivro}" th:errorclass="is-invalid" class="form-control"
+                       placeholder="Nome do livro"/>
+                <small>Informe qual o nome do livro.</small>
+                <div th:errors="*{nomeLivro}" class="invalid-feedback"> Erros referentes ao nome do livro</div>
+            </div>
+            <div class="form-group mb-2">
+                <label for="valorLivro">Url</label>
+                <input type="number" th:field="*{valorLivro}" th:errorclass="is-invalid" class="form-control"
+                       placeholder="Valor do Livro."/>
+                <small>Informe qual o valor do livro.</small>
+                <div th:errors="*{valorLivro}" class="invalid-feedback"> Erros referentes à valor do livro.</div>
+            </div>
+            <div class="mb-2 form-group">
+                <label for="editoraLivro">Editora</label>
+                <input th:field="*{editoraLivro}" th:errorclass="is-invalid" class="form-control"
+                       placeholder="Editora do Livro."/>
+                <small>Informe a editora do Livro.</small>
+                <div th:errors="*{editoraLivro}" class="invalid-feedback"> Erros referentes à editora do livro.</div>
+            </div>
+            <div class="mb-2 form-group">
+            <label for="autorLivro">Autor</label> <select class="form-control"
+                                                     th:field="*{autorLivro}">
+            <option value="">(selecione)</option>
+            <option th:each="autor: ${autorLivro}" th:value="${autor.id}"
+                    th:text="${autor.nome}"></option>
+        </select>
+                <div th:errors="*{autorLivro}" class="invalid-feedback"> Erros referentes à autor do livro.</div>
+            </div>
+            <button class="btn btn-primary" type="submit">Concluir</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
