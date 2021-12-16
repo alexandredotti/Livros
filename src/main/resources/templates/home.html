@@ -1,28 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="~{base :: head('Home')}"></head>
 <body>
 <div th:replace="~{base:: topo}"></div>
 
-    <div class="container mt-3">
-        <div th:replace="~{base :: titulo('Meus Livros')}"></div>
-        <nav th:replace="~{base :: nav}"></nav>
+<div class="container mt-3">
+    <div th:replace="~{base :: titulo('Meus Livros')}"></div>
+    <nav th:replace="~{base :: nav}"></nav>
+    <div class="row">
+    <div class="col-md-10">
+        <label for="autor">Autor</label>
+        <select class="form-control" id="autor" name="autor" onchange="reditrect(${autor.nome})">
+            <option value="">(selecione)</option>
+            <option th:each="autor: ${autores}" th:value="${autor.id}"
+                    th:text="${autor.nome}"></option>
+        </select>
+    </div>
 
-        <div class="card mb-3" th:each="livro: ${livros}">
-            <div class="col-md-7">Nome:
-                <input class="form-control" th:value="${livro.nome}" value="Livro 1"/></div>
-            <div class="card-body row">
-                <div class="col-12 col-sm-8 mb-3">
-                    <div class="row mb-1">
-                        <div class="col-md-5 mb-1">Valor: <span th:text="${#numbers.formatCurrency(livro.valor)}">R$ 200,00</span></div>
-                        <div class="col-md-7">Editora:
-                            <input class="form-control" th:value="${livro.editora}" value="Saraiva"/></div>
-                        </div>
-                    </div>
-
+    </div>
+    <div class="card mb-3" th:each="livro: ${livros}">
+        <div class="col-md-7">Nome:
+            <input class="form-control" th:value="${livro.nome}" value="Livro 1"/></div>
+        <div class="card-body row">
+            <div class="col-12 col-sm-8 mb-3">
+                <div class="row mb-1">
+                    <div class="col-md-5 mb-1">Valor: <span
+                            th:text="${#numbers.formatCurrency(livro.valor)}">R$ 200,00</span></div>
+                    <div class="col-md-7">Editora:
+                        <input class="form-control" th:value="${livro.editora}" value="Saraiva"/></div>
                 </div>
             </div>
+
         </div>
     </div>
+</div>
+</div>
+
+<script>
+    function reditrect(autor) {
+        console.log(autor+'.');
+        location.replace("http://locahost:8080/home/"+autor);
+    }
+</script>
 </body>
 </html>

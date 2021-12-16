@@ -19,14 +19,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/style/**").permitAll()
                 .antMatchers("/login").permitAll()
+
+
                 .anyRequest()
-                    .authenticated()
+                    .permitAll()
                 .and()
                 .formLogin(form -> form
                         .loginPage("/login")
                         .permitAll()
                 )
-                .logout(logout -> logout.logoutUrl("/logout"));
+                .logout(logout -> logout.logoutUrl("/logout"))
+                .csrf().disable();
+
     }
 
     @Bean
@@ -36,9 +40,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 User.withDefaultPasswordEncoder()
                         .username("admin")
                         .password("admin")
-                        .roles("USER")
+                        .roles("admin")
                         .build();
 
         return new InMemoryUserDetailsManager(user);
     }
+
 }

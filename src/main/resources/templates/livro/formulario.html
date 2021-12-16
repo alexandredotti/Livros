@@ -20,7 +20,7 @@
                 <div th:errors="*{nomeLivro}" class="invalid-feedback"> Erros referentes ao nome do livro</div>
             </div>
             <div class="form-group mb-2">
-                <label for="valorLivro">Url</label>
+                <label for="valorLivro">Valor</label>
                 <input type="number" th:field="*{valorLivro}" th:errorclass="is-invalid" class="form-control"
                        placeholder="Valor do Livro."/>
                 <small>Informe qual o valor do livro.</small>
@@ -37,7 +37,7 @@
             <label for="autorLivro">Autor</label> <select class="form-control"
                                                      th:field="*{autorLivro}">
             <option value="">(selecione)</option>
-            <option th:each="autor: ${autorLivro}" th:value="${autor.id}"
+            <option th:each="autor: ${autores}" th:value="${autor.id}"
                     th:text="${autor.nome}"></option>
         </select>
                 <div th:errors="*{autorLivro}" class="invalid-feedback"> Erros referentes à autor do livro.</div>
